@@ -1,5 +1,5 @@
-module go.nc0.fr/staticgovanityurls
+module go.nc0.fr/svgu
 
-go 1.19
+go 1.16
 
-require go.starlark.net v0.0.0-20230525235612-a134d8f9ddca // indirect
+require go.starlark.net v0.0.0-20230525235612-a134d8f9ddca
