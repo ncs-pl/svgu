@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"go.nc0.fr/svgu/pkg/config/lib/git"
 	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
 )
@@ -35,17 +36,18 @@ func ExecConfig(fl string) (*types.Index, error) {
 // load loads a module from the given path.
 func load(t *starlark.Thread, module string) (starlark.StringDict, error) {
 	switch module {
-	// todo: add libs
+	case "git.star":
+		return git.LoadGitModule(t)
+	default:
+		return nil, fmt.Errorf("unknown module %q", module)
 	}
-
-	return nil, fmt.Errorf("unknown module %q", module)
 }
 
 // Injected built-ins.
 
 // InternIndex represents the built-in function "index".
 // index(domain) initializes a new index with the given domain.
-func InternIndex(thread *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
+func InternIndex(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 	kwargs []starlark.Tuple) (starlark.Value, error) {
 	var domain string
 	if err := starlark.UnpackArgs("index", args, kwargs,
