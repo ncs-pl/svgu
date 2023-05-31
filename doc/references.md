@@ -28,21 +28,21 @@ SVGU's Starlark environment is based on the
 - [Fossil](#fossil)
     + [fossil.FOSSIL](#fossilfossil)
 - [Git](#git)
-    + [git.GIT](#gitgit)
-    + [git.GITHUB_DEFAULT_INSTANCE](#gitgithubdefaultinstance)
-    + [git.GITHUB_DEFAULT_REF](#gitgithubdefaultref)
-    + [git.SOURCEHUT_DEFAULT_INSTANCE](#gitsourcehutdefaultinstance)
-    + [git.SOURCEHUT_DEFAULT_REF](#gitsourcehutdefaultref)
-    + [git.GITLAB_DEFAULT_INSTANCE](#gitgitlabdefaultinstance)
-    + [git.GITLAB_DEFAULT_REF](#gitgitlabdefaultref)
-    + [git.BITBUCKET_DEFAULT_INSTANCE](#gitbitbucketdefaultinstance)
-    + [git.BITBUCKET_DEFAULT_REF](#gitbitbucketdefaultref)
-    + [git.GITILES_DEFAULT_REF](#gitgitilesdefaultref)
-    + [git.github](#gitgithub)
-    + [git.sourcehut](#gitsourcehut)
-    + [git.gitlab](#gitgitlab)
-    + [git.bitbucket](#gitbitbucket)
-    + [git.gitiles](#gitgitiles)
+  + [git.GIT](#gitgit)
+  + [git.GITHUB_DEFAULT_INSTANCE](#gitgithub_default_instance)
+  + [git.GITHUB_DEFAULT_REF](#gitgithub_default_ref)
+  + [git.SOURCEHUT_DEFAULT_INSTANCE](#gitsourcehut_default_instance)
+  + [git.SOURCEHUT_DEFAULT_REF](#gitsourcehut_default_ref)
+  + [git.GITLAB_DEFAULT_INSTANCE](#gitgitlab_default_instance)
+  + [git.GITLAB_DEFAULT_REF](#gitgitlab_default_ref)
+  + [git.BITBUCKET_DEFAULT_INSTANCE](#gitbitbucket_default_instance)
+  + [git.BITBUCKET_DEFAULT_REF](#gitbitbucket_default_ref)
+  + [git.GITILES_DEFAULT_REF](#gitgitiles_default_ref)
+  + [git.github](#gitgithub)
+  + [git.sourcehut](#gitsourcehut)
+  + [git.gitlab](#gitgitlab)
+  + [git.bitbucket](#gitbitbucket)
+  + [git.gitiles](#gitgitiles)
 - [Mercurial](#mercurial)
     + [hg.MERCURIAL](#hgmercurial)
 - [Subversion](#subversion)
@@ -280,13 +280,13 @@ A macro that registers a module hosted on [GitHub][github-link].
 
 #### Parameters
 
-| Name       | Type     | Description                                                                                        |
-|------------|----------|----------------------------------------------------------------------------------------------------|
-| `name`     | `string` | The name of the module.                                                                            |
-| `user`     | `string` | The GitHub user or organization name.                                                              |
-| `repo`     | `string` | The GitHub repository name.                                                                        |
-| `ref`      | `string` | The Git reference to use. Default to [`git.GITHUB_DEFAULT_REF`](#gitgithubdefaultref).             |
-| `instance` | `string` | The GitHub instance to use. Default to [`git.GITHUB_DEFAULT_INSTANCE`](#gitgithubdefaultinstance). |
+| Name       | Type     | Description                                                                                          |
+|------------|----------|------------------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                              |
+| `user`     | `string` | The GitHub user or organization name.                                                                |
+| `repo`     | `string` | The GitHub repository name.                                                                          |
+| `ref`      | `string` | The Git reference to use. Default to [`git.GITHUB_DEFAULT_REF`](#gitgithub_default_ref).             |
+| `instance` | `string` | The GitHub instance to use. Default to [`git.GITHUB_DEFAULT_INSTANCE`](#gitgithub_default_instance). |
 
 #### Example
 
@@ -319,13 +319,13 @@ A macro that registers a module hosted on [GitLab][gitlab-link].
 
 #### Parameters
 
-| Name       | Type     | Description                                                                                        |
-|------------|----------|----------------------------------------------------------------------------------------------------|
-| `name`     | `string` | The name of the module.                                                                            |
-| `user`     | `string` | The GitLab user or organization name.                                                              |
-| `repo`     | `string` | The GitLab repository name.                                                                        |
-| `ref`      | `string` | The Git reference to use. Default to [`git.GITLAB_DEFAULT_REF`](#gitgitlabdefaultref).             |
-| `instance` | `string` | The GitLab instance to use. Default to [`git.GITLAB_DEFAULT_INSTANCE`](#gitgitlabdefaultinstance). |
+| Name       | Type     | Description                                                                                          |
+|------------|----------|------------------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                              |
+| `user`     | `string` | The GitLab user or organization name.                                                                |
+| `repo`     | `string` | The GitLab repository name.                                                                          |
+| `ref`      | `string` | The Git reference to use. Default to [`git.GITLAB_DEFAULT_REF`](#gitgitlab_default_ref).             |
+| `instance` | `string` | The GitLab instance to use. Default to [`git.GITLAB_DEFAULT_INSTANCE`](#gitgitlab_default_instance). |
 
 #### Example
 
@@ -362,13 +362,13 @@ A macro that registers a module hosted on
 
 #### Parameters
 
-| Name       | Type     | Description                                                                                                  |
-|------------|----------|--------------------------------------------------------------------------------------------------------------|
-| `name`     | `string` | The name of the module.                                                                                      |
-| `user`     | `string` | The Source Hut user name.                                                                                    |
-| `repo`     | `string` | The Source Hut repository name.                                                                              |
-| `ref`      | `string` | The Git reference to use. Default to [`git.SOURCEHUT_DEFAULT_REF`](#gitsourcehutdefaultref).                 |
-| `instance` | `string` | The Source Hut instance to use. Default to [`git.SOURCEHUT_DEFAULT_INSTANCE`](#gitsourcehutdefaultinstance). |
+| Name       | Type     | Description                                                                                                    |
+|------------|----------|----------------------------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                                        |
+| `user`     | `string` | The Source Hut user name.                                                                                      |
+| `repo`     | `string` | The Source Hut repository name.                                                                                |
+| `ref`      | `string` | The Git reference to use. Default to [`git.SOURCEHUT_DEFAULT_REF`](#gitsourcehut_default_ref).                 |
+| `instance` | `string` | The Source Hut instance to use. Default to [`git.SOURCEHUT_DEFAULT_INSTANCE`](#gitsourcehut_default_instance). |
 
 #### Example
 
@@ -415,13 +415,13 @@ As always, your mileage may vary.
 
 #### Parameters
 
-| Name        | Type     | Description                                                                                                 |
-|-------------|----------|-------------------------------------------------------------------------------------------------------------|
-| `name`      | `string` | The name of the module.                                                                                     |
-| `workspace` | `string` | The Bitbucket workspace ID.                                                                                 |
-| `repo`      | `string` | The Bitbucket repository name.                                                                              |
-| `ref`       | `string` | The Git reference to use. Default to [`git.BITBUCKET_DEFAULT_REF`](#gitbitbucketdefaultref).                |
-| `instance`  | `string` | The Bitbucket instance to use. Default to [`git.BITBUCKET_DEFAULT_INSTANCE`](#gitbitbucketdefaultinstance). |
+| Name        | Type     | Description                                                                                                   |
+|-------------|----------|---------------------------------------------------------------------------------------------------------------|
+| `name`      | `string` | The name of the module.                                                                                       |
+| `workspace` | `string` | The Bitbucket workspace ID.                                                                                   |
+| `repo`      | `string` | The Bitbucket repository name.                                                                                |
+| `ref`       | `string` | The Git reference to use. Default to [`git.BITBUCKET_DEFAULT_REF`](#gitbitbucket_default_ref).                |
+| `instance`  | `string` | The Bitbucket instance to use. Default to [`git.BITBUCKET_DEFAULT_INSTANCE`](#gitbitbucket_default_instance). |
 
 #### Example
 
@@ -459,12 +459,12 @@ A macro that registers a module hosted on [Gitiles][gitiles-link]
 
 #### Parameters
 
-| Name       | Type     | Description                                                                               |
-|------------|----------|-------------------------------------------------------------------------------------------|
-| `name`     | `string` | The name of the module.                                                                   |
-| `instance` | `string` | The Gitiles instance to use.                                                              |
-| `repo`     | `string` | The Gitiles repository path.                                                              |
-| `ref`      | `string` | The Git reference to use. Defaults to [`git.GITILES_DEFAULT_REF`](#gitgitilesdefaultref). |
+| Name       | Type     | Description                                                                                 |
+|------------|----------|---------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                     |
+| `instance` | `string` | The Gitiles instance to use.                                                                |
+| `repo`     | `string` | The Gitiles repository path.                                                                |
+| `ref`      | `string` | The Git reference to use. Defaults to [`git.GITILES_DEFAULT_REF`](#gitgitiles_default_ref). |
 
 #### Example
 
