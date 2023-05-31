@@ -30,7 +30,7 @@ tasks:
       cd svgu
       gofmt -d -e -l -s cmd pkg
   - test: |
-      cd svgu/tesdata
+      cd svgu/testdata
       go run ../cmd/svgu/svgu.go -o=dst -v -c=DOMAINS.star
       tar -czvf dst.tar.gz dst
   - build: |
