@@ -1,10 +1,10 @@
 package types
 
 import (
+	"fmt"
 	"go.nc0.fr/svgu/pkg/templates"
 	"os"
 	"path"
-	"sync"
 )
 
 // Vcs is an enum for version control systems supported by the standard Go
@@ -29,14 +29,10 @@ type Module struct {
 	Repo string // repository's home
 	Dir  string // url template
 	File string // url template
-	// internal
-	lock sync.Mutex
 }
 
 // GenerateFile generates the index file.
 func (m *Module) GenerateFile(out string, domain string) error {
-	m.lock.Lock()
-	defer m.lock.Unlock()
 
 	f := path.Join(out, m.Path+".html")
 
@@ -53,7 +49,8 @@ func (m *Module) GenerateFile(out string, domain string) error {
 	}(fd)
 
 	// Execute the template and write the output to the file.
-	if err := templates.ExecModule(fd, domain+m.Path, string(m.Vcs),
+	if err := templates.ExecModule(fd,
+		fmt.Sprintf("%s/%s", domain, m.Path), string(m.Vcs),
 		m.Repo, m.Dir, m.File); err != nil {
 		return err
 	}
