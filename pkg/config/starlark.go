@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"go.nc0.fr/svgu/pkg/config/lib/git"
+	"go.nc0.fr/svgu/pkg/config/lib/hg"
 	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
 )
@@ -36,8 +37,10 @@ func ExecConfig(fl string) (*types.Index, error) {
 // load loads a module from the given path.
 func load(t *starlark.Thread, module string) (starlark.StringDict, error) {
 	switch module {
-	case "git.star":
+	case "git.star": // git
 		return git.LoadGitModule(t)
+	case "hg.star": // mercurial
+		return hg.LoadHgModule(t)
 	default:
 		return nil, fmt.Errorf("unknown module %q", module)
 	}
