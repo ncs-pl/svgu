@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go.nc0.fr/svgu/pkg/config/lib/git"
 	"go.nc0.fr/svgu/pkg/config/lib/hg"
+	"go.nc0.fr/svgu/pkg/config/lib/svn"
 	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
 )
@@ -41,6 +42,8 @@ func load(t *starlark.Thread, module string) (starlark.StringDict, error) {
 		return git.LoadGitModule(t)
 	case "hg.star": // mercurial
 		return hg.LoadHgModule(t)
+	case "svn.star": // subversion
+		return svn.LoadSvnModule(t)
 	default:
 		return nil, fmt.Errorf("unknown module %q", module)
 	}
