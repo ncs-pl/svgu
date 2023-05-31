@@ -15,7 +15,7 @@ var (
 	cfg     = flag.String("c", "DOMAINS.star", "the configuration file to use.")
 	out     = flag.String("o", "dst", "output directory")
 	verbose = flag.Bool("v", false, "prints additional information logs")
-) // todo(nc0): verbose
+)
 
 func main() {
 	log.SetFlags(0)
@@ -86,14 +86,18 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
+	var mu sync.Mutex
 	for _, mod := range idx.Modules {
 		wg.Add(1)
 		go func(m *types.Module) {
 			defer wg.Done()
+			defer mu.Unlock()
+
+			mu.Lock()
 			if err := m.GenerateFile(*out, idx.Domain); err != nil {
 				log.Fatalf("could not generate module %q: %v", m.Path, err)
 			}
-		}(&mod)
+		}(mod)
 	}
 
 	wg.Wait()

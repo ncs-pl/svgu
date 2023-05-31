@@ -30,7 +30,7 @@ func ExecConfig(fl string) (*types.Index, error) {
 
 	prelude.Registered = types.Index{
 		Domain:  "",
-		Modules: make(map[string]types.Module),
+		Modules: make(map[string]*types.Module),
 	}
 	if _, err := starlark.ExecFile(th, fl, nil, env); err != nil {
 		return &types.Index{}, err

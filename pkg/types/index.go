@@ -10,7 +10,7 @@ import (
 // Index is the global object representing the Starlark configuration.
 type Index struct {
 	Domain  string
-	Modules map[string]Module
+	Modules map[string]*Module
 	// internal
 	lock sync.Mutex
 }
@@ -23,14 +23,14 @@ func (i *Index) SetDomain(d string) {
 }
 
 // AddModule adds a module to the index.
-func (i *Index) AddModule(n string, m Module) {
+func (i *Index) AddModule(n string, m *Module) {
 	i.lock.Lock()
 	defer i.lock.Unlock()
 	i.Modules[n] = m
 }
 
 // GetModule returns a module from the index.
-func (i *Index) GetModule(n string) Module {
+func (i *Index) GetModule(n string) *Module {
 	i.lock.Lock()
 	defer i.lock.Unlock()
 	return i.Modules[n]

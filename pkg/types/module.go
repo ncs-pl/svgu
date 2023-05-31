@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"sync"
 )
 
 // Vcs is an enum for version control systems supported by the standard Go
@@ -30,21 +31,31 @@ type Module struct {
 	Repo string // repository's home
 	Dir  string // url template
 	File string // url template
+
+	// internal
+	mu sync.Mutex
 }
 
 // GenerateFile generates the index file.
 func (m *Module) GenerateFile(out string, domain string) error {
+	m.mu.Lock()
+	p := m.Path
+	v := m.Vcs
+	r := m.Repo
+	d := m.Dir
+	f := m.File
+	m.mu.Unlock()
 
-	f := path.Join(out, m.Path+".html")
+	outf := path.Join(out, p+".html")
 
 	// Create the file.
-	if strings.Contains(m.Path, "/") {
-		if err := os.MkdirAll(path.Dir(f), 0755); err != nil {
+	if strings.Contains(p, "/") {
+		if err := os.MkdirAll(path.Dir(outf), 0755); err != nil {
 			return err
 		}
 	}
 
-	fd, err := os.Create(f)
+	fd, err := os.Create(outf)
 	if err != nil {
 		return err
 	}
@@ -57,8 +68,8 @@ func (m *Module) GenerateFile(out string, domain string) error {
 
 	// Execute the template and write the output to the file.
 	if err := templates.ExecModule(fd,
-		fmt.Sprintf("%s/%s", domain, m.Path), string(m.Vcs),
-		m.Repo, m.Dir, m.File); err != nil {
+		fmt.Sprintf("%s/%s", domain, p), string(v), r,
+		d, f); err != nil {
 		return err
 	}
 

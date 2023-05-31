@@ -81,7 +81,7 @@ func InternModule(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 		return nil, fmt.Errorf("unknown vcs %q", vcs)
 	}
 
-	Registered.AddModule(name, types.Module{
+	Registered.AddModule(name, &types.Module{
 		Path: name,
 		Vcs:  v,
 		Repo: repo,
