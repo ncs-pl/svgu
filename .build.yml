@@ -1,0 +1,62 @@
+image: alpine/latest
+arch: x86_64
+packages:
+  - go
+sources:
+  - https://git.sr.ht/~n1c00o/svgu
+artifacts:
+  - svgu/testdata/dst.tar.gz
+  - svgu/dst/svgu-linux-amd64
+  - svgu/dst/svgu-linux-arm64
+  - svgu/dst/svgu-linux-riscv64
+  - svgu/dst/svgu-linux-ppc64le
+  - svgu/dst/svgu-linux-ppc64
+  - svgu/dst/svgu-darwin-amd64
+  - svgu/dst/svgu-darwin-arm64
+  - svgu/dst/svgu-windows-amd64
+  - svgu/dst/svgu-windows-arm64
+  - svgu/dst/svgu-freebsd-amd64
+  - svgu/dst/svgu-freebsd-arm64
+  - svgu/dst/svgu-freebsd-riscv64
+  - svgu/dst/svgu-openbsd-amd64
+  - svgu/dst/svgu-openbsd-arm64
+  - svgu/dst/svgu-netbsd-amd64
+  - svgu/dst/svgu-netbsd-arm64
+  - svgu/dst/svgu-solaris-amd64
+  - svgu/dst/svgu-dragonfly-amd64
+  - svgu/dst/svgu-plan9-amd64
+tasks:
+  - fmt: |
+      cd svgu
+      gofmt -d -e -l -s cmd src
+  - test: |
+      cd svgu/tesdata
+      go run ../cmd/svgu/svgu.go -o=dst -v -c=DOMAINS.star
+      tar -czvf dst.tar.gz dst
+  - build: |
+      cd svgu
+      mkdir dst
+      
+      GOOS=linux GOARCH=amd64 go build -o dst/svgu-linux-amd64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=arm64 go build -o dst/svgu-linux-arm64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=riscv64 go build -o dst/svgu-linux-riscv64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=ppc64le go build -o dst/svgu-linux-ppc64le cmd/svgu/svgu.go
+      GOOS=linux GOARCH=ppc64 go build -o dst/svgu-linux-ppc64 cmd/svgu/svgu.go
+      GOOS=darwin GOARCH=amd64 go build -o dst/svgu-darwin-amd64 cmd/svgu/svgu.go
+      GOOS=darwin GOARCH=arm64 go build -o dst/svgu-darwin-arm64 cmd/svgu/svgu.go
+      GOOS=windows GOARCH=amd64 go build -o dst/svgu-windows-amd64 cmd/svgu/svgu.go
+      GOOS=windows GOARCH=arm64 go build -o dst/svgu-windows-arm64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=amd64 go build -o dst/svgu-freebsd-amd64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=arm64 go build -o dst/svgu-freebsd-arm64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=riscv64 go build -o dst/svgu-freebsd-riscv64 cmd/svgu/svgu.go
+      GOOS=openbsd GOARCH=amd64 go build -o dst/svgu-openbsd-amd64 cmd/svgu/svgu.go
+      GOOS=openbsd GOARCH=arm64 go build -o dst/svgu-openbsd-arm64 cmd/svgu/svgu.go
+      GOOS=netbsd GOARCH=amd64 go build -o dst/svgu-netbsd-amd64 cmd/svgu/svgu.go
+      GOOS=netbsd GOARCH=arm64 go build -o dst/svgu-netbsd-arm64 cmd/svgu/svgu.go
+      GOOS=solaris GOARCH=amd64 go build -o dst/svgu-solaris-amd64 cmd/svgu/svgu.go  
+      GOOS=dragonfly GOARCH=amd64 go build -o dst/svgu-dragonfly-amd64 cmd/svgu/svgu.go
+      GOOS=plan9 GOARCH=amd64 go build -o dst/svgu-plan9-amd64 cmd/svgu/svgu.go
+triggers:
+  - action: email
+    condition: always
+    to: "~n1c00o/svgu@lists.sr.ht"
