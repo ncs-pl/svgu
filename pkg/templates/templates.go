@@ -13,7 +13,7 @@ var (
 	//
 	// {{.Count}} corresponds to the timer—in seconds— before redirecting.
 	// {{.Redirect}} is the URL to redirect visitors to.
-	indexTmpl *template.Template = template.Must(
+	indexTmpl = template.Must(
 		template.New("index").Parse(`<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta http-equiv="refresh" content="{{.Count}}; url='{{.Redirect}}'">
@@ -35,7 +35,7 @@ var (
 	//
 	// Templates support a specific set of substitutions which are documented
 	// here: https://github.com/golang/gddo/wiki/Source-Code-Links
-	moduleTmpl *template.Template = template.Must(
+	moduleTmpl = template.Must(
 		template.New("module").Parse(`<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="go-import" content="{{.Prefix}} {{.Vcs}} {{.Home}}">
