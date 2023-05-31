@@ -28,7 +28,7 @@ artifacts:
 tasks:
   - fmt: |
       cd svgu
-      gofmt -d -e -l -s cmd src
+      gofmt -d -e -l -s cmd pkg
   - test: |
       cd svgu/tesdata
       go run ../cmd/svgu/svgu.go -o=dst -v -c=DOMAINS.star
