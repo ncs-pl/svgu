@@ -1,5 +1,7 @@
 # SVGU
 
+[![builds.sr.ht status](https://builds.sr.ht/~n1c00o/svgu.svg)](https://builds.sr.ht/~n1c00o/svgu?)
+
 SVGU (short for *Static, Vanity, Go URL*) is a flexible and easy to use
 tool for creating vanity URLs for your Go projects.
 It allows publishing a Go module under a custom domain name, without the need
