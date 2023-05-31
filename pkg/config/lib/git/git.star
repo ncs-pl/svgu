@@ -33,7 +33,7 @@ def _github(
                (instance, user, repo, ref),
     )
 
-_SOURCEHUT_DEFAULT_INSTANCE = "git.sr.ht"
+_SOURCEHUT_DEFAULT_INSTANCE = "https://git.sr.ht"
 _SOURCEHUT_DEFAULT_REF = "master"
 
 # TODO(nc0): See the status for organizations and groups, as they are expected
