@@ -4,9 +4,11 @@ package main // import "go.nc0.fr/svgu"
 import (
 	"flag"
 	"go.nc0.fr/svgu/pkg/config"
+	"go.nc0.fr/svgu/pkg/types"
 	"log"
 	"os"
 	"path/filepath"
+	"sync"
 )
 
 var (
@@ -83,9 +85,17 @@ func main() {
 		log.Printf("generating modules")
 	}
 
+	var wg sync.WaitGroup
 	for _, mod := range idx.Modules {
-		if err := mod.GenerateFile(*out, idx.Domain); err != nil {
-			log.Fatalf("could not generate module %q: %v", mod.Path, err)
-		}
+		wg.Add(1)
+		go func(m *types.Module) {
+			defer wg.Done()
+			if err := m.GenerateFile(*out, idx.Domain); err != nil {
+				log.Fatalf("could not generate module %q: %v", m.Path, err)
+			}
+		}(&mod)
 	}
+
+	wg.Wait()
+	log.Println("done")
 }
