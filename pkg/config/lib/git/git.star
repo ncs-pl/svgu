@@ -10,7 +10,7 @@ def _github(
         name,
         user,
         repo,
-        branch = _GITHUB_DEFAULT_MASTER,
+        ref = _GITHUB_DEFAULT_MASTER,
         instance = _GITHUB_DEFAULT_INSTANCE):
     """Register a module hosted on GitHub.
 
@@ -18,7 +18,7 @@ def _github(
         name (str): The name of the module.
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
-        branch (str): The name of the branch.
+        ref (str): The name of the ref.
             Defaults to `git.GITHUB_DEFAULT_MASTER`.
         instance (str): The name of the instance.
             Defaults to `git.GITHUB_DEFAULT_INSTANCE`.
@@ -28,9 +28,9 @@ def _github(
         name = name,
         vcs = _GIT,
         repo = "%s/%s/%s" % (instance, user, repo),
-        dir = "%s/%s/%s/tree/%s{/dir}" % (instance, user, repo, branch),
+        dir = "%s/%s/%s/tree/%s{/dir}" % (instance, user, repo, ref),
         file = "%s/%s/%s/blob/%s{/dir}/{file}#L{line}" %
-               (instance, user, repo, branch),
+               (instance, user, repo, ref),
     )
 
 _SOURCEHUT_DEFAULT_INSTANCE = "git.sr.ht"
@@ -42,7 +42,7 @@ def _sourcehut(
         name,
         user,
         repo,
-        branch = _SOURCEHUT_DEFAULT_MASTER,
+        ref = _SOURCEHUT_DEFAULT_MASTER,
         instance = _SOURCEHUT_DEFAULT_INSTANCE):
     """Register a module hosted on Source Hut's Git hosting.
 
@@ -50,7 +50,7 @@ def _sourcehut(
         name (str): The name of the module.
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
-        branch (str): The name of the branch.
+        ref (str): The name of the ref.
             Defaults to `git.SOURCEHUT_DEFAULT_MASTER`.
         instance (str): The name of the instance.
             Defaults to `git.SOURCEHUT_DEFAULT_INSTANCE`.
@@ -61,9 +61,9 @@ def _sourcehut(
         vcs = _GIT,
         repo = "%s/~%s/%s" % (instance, user, repo),
         dir = "%s/~%s/%s/tree/%s{/dir}" %
-              (instance, user, repo, branch),
+              (instance, user, repo, ref),
         file = "%s/~%s/%s/tree/%s/item{/dir}/{file}#L{line}" %
-               (instance, user, repo, branch),
+               (instance, user, repo, ref),
     )
 
 # https://about.gitlab.com/blog/2021/03/10/new-git-default-branch-name/
@@ -74,7 +74,7 @@ def _gitlab(
         name,
         user,
         repo,
-        branch = _GITLAB_DEFAULT_MASTER,
+        ref = _GITLAB_DEFAULT_MASTER,
         instance = _GITLAB_DEFAULT_INSTANCE):
     """Register a module hosted on GitLab.
 
@@ -82,7 +82,7 @@ def _gitlab(
         name (str): The name of the module.
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
-        branch (str): The name of the branch.
+        ref (str): The name of the ref.
             Defaults to `git.GITLAB_DEFAULT_MASTER`.
         instance (str): The name of the instance.
             Defaults to `git.GITLAB_DEFAULT_INSTANCE`.
@@ -92,20 +92,20 @@ def _gitlab(
         name = name,
         vcs = _GIT,
         repo = "%s/%s/%s" % (instance, user, repo),
-        dir = "%s/%s/%s/-/tree/%s{/dir}" % (instance, user, repo, branch),
+        dir = "%s/%s/%s/-/tree/%s{/dir}" % (instance, user, repo, ref),
         file = "%s/%s/%s/-/blob/%s{/dir}/{file}#L{line}" %
-               (instance, user, repo, branch),
+               (instance, user, repo, ref),
     )
 
 # https://confluence.atlassian.com/bitbucketserver/setting-a-system-wide-default-branch-name-1021220665.html
 _BITBUCKET_DEFAULT_INSTANCE = "https://bitbucket.org"
-_BITBUCKET_DEFAULT_MASTER = "master"
+_BITBUCKET_DEFAULT_REF = "master"
 
 def _bitbucket(
         name,
         workspace,
         repo,
-        branch = _BITBUCKET_DEFAULT_MASTER,
+        ref = _BITBUCKET_DEFAULT_REF,
         instance = _BITBUCKET_DEFAULT_INSTANCE):
     """Register a module hosted on Bitbucket.
 
@@ -118,8 +118,8 @@ def _bitbucket(
         name (str): The name of the module.
         workspace (str): The ID of the workspace.
         repo (str): The name of the repository.
-        branch (str): The name of the branch.
-            Defaults to `git.BITBUCKET_DEFAULT_MASTER`.
+        ref (str): The name of the ref.
+            Defaults to `git.BITBUCKET_DEFAULT_REF`.
         instance (str): The name of the instance.
             Defaults to `git.BITBUCKET_DEFAULT_INSTANCE`.
     """
@@ -128,49 +128,49 @@ def _bitbucket(
         name = name,
         vcs = _GIT,
         repo = "%s/%s/%s" % (instance, workspace, repo),
-        dir = "%s/%s/%s/src/%s{/dir}" % (instance, workspace, repo, branch),
+        dir = "%s/%s/%s/src/%s{/dir}" % (instance, workspace, repo, ref),
         file = "%s/%s/%s/src/%s{/dir}/{file}#{file}-{line}" %
-               (instance, user, repo, branch),
+               (instance, user, repo, ref),
     )
 
-_GITILES_DEFAULT_MASTER = "master"
+_GITILES_DEFAULT_REF = "master"
 
 def _gitiles(
         name,
         instance,
         repo,
-        branch = _GITILES_DEFAULT_MASTER):
+        ref = _GITILES_DEFAULT_REF):
     """Register a module hosted a Gitiles (Gerrit) installation.
 
     Args:
         name (str): The name of the module.
         instance (str): The Gitiles instance URL.
         repo (str): The repository path.
-        branch (str):  The name of the branch.
-            Defaults to `git.GITILES_DEFAULT_MASTER`.
+        ref (str):  The name of the ref.
+            Defaults to `git.GITILES_DEFAULT_REF`.
     """
 
     return module(
         name = name,
         vcs = _GIT,
         repo = "%s/%s" % (instance, repo),
-        dir = "%s/%s/+/refs/heads/%s{/dir}" % (instance, repo, branch),
+        dir = "%s/%s/+/refs/heads/%s{/dir}" % (instance, repo, ref),
         file = "%s/%s/+/refs/heads/%s{/dir}/{file}#{line}" %
-               (instance, repo, branch),
+               (instance, repo, ref),
     )
 
 git = make_module(
     "git",
     GIT = _GIT,
     GITHUB_DEFAULT_INSTANCE = _GITHUB_DEFAULT_INSTANCE,
-    GITHUB_DEFAULT_MASTER = _GITHUB_DEFAULT_MASTER,
+    GITHUB_DEFAULT_REF = _GITHUB_DEFAULT_REF,
     SOURCEHUT_DEFAULT_INSTANCE = _SOURCEHUT_DEFAULT_INSTANCE,
-    SOURCEHUT_DEFAULT_MASTER = _SOURCEHUT_DEFAULT_MASTER,
+    SOURCEHUT_DEFAULT_REF = _SOURCEHUT_DEFAULT_REF,
     GITLAB_DEFAULT_INSTANCE = _GITLAB_DEFAULT_INSTANCE,
-    GITLAB_DEFAULT_MASTER = _GITLAB_DEFAULT_MASTER,
+    GITLAB_DEFAULT_REF = _GITLAB_DEFAULT_REF,
     BITBUCKET_DEFAULT_INSTANCE = _BITBUCKET_DEFAULT_INSTANCE,
-    BITBUCKET_DEFAULT_MASTER = _BITBUCKET_DEFAULT_MASTER,
-    GITILES_DEFAULT_MASTER = _GITILES_DEFAULT_MASTER,
+    BITBUCKET_DEFAULT_REF = _BITBUCKET_DEFAULT_REF,
+    GITILES_DEFAULT_REF = _GITILES_DEFAULT_REF,
     github = _github,
     sourcehut = _sourcehut,
     gitlab = _gitlab,
