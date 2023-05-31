@@ -5,6 +5,7 @@ import (
 	"go.nc0.fr/svgu/pkg/templates"
 	"os"
 	"path"
+	"strings"
 )
 
 // Vcs is an enum for version control systems supported by the standard Go
@@ -37,6 +38,12 @@ func (m *Module) GenerateFile(out string, domain string) error {
 	f := path.Join(out, m.Path+".html")
 
 	// Create the file.
+	if strings.Contains(m.Path, "/") {
+		if err := os.MkdirAll(path.Dir(f), 0755); err != nil {
+			return err
+		}
+	}
+
 	fd, err := os.Create(f)
 	if err != nil {
 		return err
