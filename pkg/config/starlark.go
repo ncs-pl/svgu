@@ -9,7 +9,11 @@ import (
 	"go.nc0.fr/svgu/pkg/config/lib/svn"
 	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
+	"strings"
 )
+
+// https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names
+const invalidName string = "..\\/<>:\"|?* \t\n\r\b\findex"
 
 var registered types.Index
 
@@ -73,15 +77,40 @@ func InternIndex(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 }
 
 // InternModule represents the built-in function "module".
-// module(name, vcs, repo, dir=None, file=None) registers a new module into the
+// module(name, vcs, repo, dir, file) registers a new module into the
 // index.
 func InternModule(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 	kwargs []starlark.Tuple) (starlark.Value, error) {
 
 	var name, vcs, repo, dir, file string
 	if err := starlark.UnpackArgs("module", args, kwargs, "name",
-		&name, "vcs", &vcs, "repo", &repo, "dir?", &dir, "file?", &file); err != nil {
+		&name, "vcs", &vcs, "repo", &repo, "dir", &dir, "file", &file); err != nil {
 		return nil, err
+	}
+
+	if registered.Domain == "" {
+		return nil, fmt.Errorf("index not initialized")
+	}
+
+	if name == "" {
+		return nil, fmt.Errorf("module name cannot be empty")
+	}
+
+	if vcs == "" {
+		return nil, fmt.Errorf("module %q vcs cannot be empty", name)
+	}
+
+	if repo == "" {
+		return nil, fmt.Errorf("module %q repo cannot be empty", name)
+	}
+
+	// Check for name conditions.
+	if strings.Contains(invalidName, name) {
+		return nil, fmt.Errorf("module %q name is invalid", name)
+	}
+
+	if registered.CheckModule(name) {
+		return nil, fmt.Errorf("module %q already exists", name)
 	}
 
 	var v types.Vcs
