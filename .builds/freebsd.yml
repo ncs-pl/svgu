@@ -6,15 +6,15 @@ sources:
   - https://git.sr.ht/~n1c00o/svgu
 artifacts:
   - svgu/testdata/dst.tar.gz
-  - svgu/dst/svgu-freebsd-amd64
-  - svgu/dst/svgu-freebsd-arm64
-  - svgu/dst/svgu-freebsd-riscv64
-  - svgu/dst/svgu-openbsd-amd64
-  - svgu/dst/svgu-openbsd-arm64
-  - svgu/dst/svgu-netbsd-amd64
-  - svgu/dst/svgu-netbsd-arm64
-  - svgu/dst/svgu-solaris-amd64
-  - svgu/dst/svgu-dragonfly-amd64
+  - svgu/svgu-freebsd-amd64
+  - svgu/svgu-freebsd-arm64
+  - svgu/svgu-freebsd-riscv64
+  - svgu/svgu-openbsd-amd64
+  - svgu/svgu-openbsd-arm64
+  - svgu/svgu-netbsd-amd64
+  - svgu/svgu-netbsd-arm64
+  - svgu/svgu-solaris-amd64
+  - svgu/svgu-dragonfly-amd64
 tasks:
   - fmt: |
       cd svgu
@@ -25,17 +25,16 @@ tasks:
       tar -czvf dst.tar.gz dst
   - build: |
       cd svgu
-      mkdir dst
       
-      GOOS=freebsd GOARCH=amd64 go build -o dst/svgu-freebsd-amd64 cmd/svgu/svgu.go
-      GOOS=freebsd GOARCH=arm64 go build -o dst/svgu-freebsd-arm64 cmd/svgu/svgu.go
-      GOOS=freebsd GOARCH=riscv64 go build -o dst/svgu-freebsd-riscv64 cmd/svgu/svgu.go
-      GOOS=openbsd GOARCH=amd64 go build -o dst/svgu-openbsd-amd64 cmd/svgu/svgu.go
-      GOOS=openbsd GOARCH=arm64 go build -o dst/svgu-openbsd-arm64 cmd/svgu/svgu.go
-      GOOS=netbsd GOARCH=amd64 go build -o dst/svgu-netbsd-amd64 cmd/svgu/svgu.go
-      GOOS=netbsd GOARCH=arm64 go build -o dst/svgu-netbsd-arm64 cmd/svgu/svgu.go
-      GOOS=solaris GOARCH=amd64 go build -o dst/svgu-solaris-amd64 cmd/svgu/svgu.go  
-      GOOS=dragonfly GOARCH=amd64 go build -o dst/svgu-dragonfly-amd64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=amd64 go build -o svgu-freebsd-amd64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=arm64 go build -o svgu-freebsd-arm64 cmd/svgu/svgu.go
+      GOOS=freebsd GOARCH=riscv64 go build -o svgu-freebsd-riscv64 cmd/svgu/svgu.go
+      GOOS=openbsd GOARCH=amd64 go build -o svgu-openbsd-amd64 cmd/svgu/svgu.go
+      GOOS=openbsd GOARCH=arm64 go build -o svgu-openbsd-arm64 cmd/svgu/svgu.go
+      GOOS=netbsd GOARCH=amd64 go build -o svgu-netbsd-amd64 cmd/svgu/svgu.go
+      GOOS=netbsd GOARCH=arm64 go build -o svgu-netbsd-arm64 cmd/svgu/svgu.go
+      GOOS=solaris GOARCH=amd64 go build -o svgu-solaris-amd64 cmd/svgu/svgu.go  
+      GOOS=dragonfly GOARCH=amd64 go build -o svgu-dragonfly-amd64 cmd/svgu/svgu.go
 triggers:
   - action: email
     condition: always

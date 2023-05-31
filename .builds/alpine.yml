@@ -6,16 +6,16 @@ sources:
   - https://git.sr.ht/~n1c00o/svgu
 artifacts:
   - svgu/testdata/dst.tar.gz
-  - svgu/dst/svgu-linux-amd64
-  - svgu/dst/svgu-linux-arm64
-  - svgu/dst/svgu-linux-riscv64
-  - svgu/dst/svgu-linux-ppc64le
-  - svgu/dst/svgu-linux-ppc64
-  - svgu/dst/svgu-darwin-amd64
-  - svgu/dst/svgu-darwin-arm64
-  - svgu/dst/svgu-windows-amd64
-  - svgu/dst/svgu-windows-arm64
-  - svgu/dst/svgu-plan9-amd64
+  - svgu/svgu-linux-amd64
+  - svgu/svgu-linux-arm64
+  - svgu/svgu-linux-riscv64
+  - svgu/svgu-linux-ppc64le
+  - svgu/svgu-linux-ppc64
+  - svgu/svgu-darwin-amd64
+  - svgu/svgu-darwin-arm64
+  - svgu/svgu-windows-amd64
+  - svgu/svgu-windows-arm64
+  - svgu/svgu-plan9-amd64
 tasks:
   - fmt: |
       cd svgu
@@ -26,18 +26,17 @@ tasks:
       tar -czvf dst.tar.gz dst
   - build: |
       cd svgu
-      mkdir dst
       
-      GOOS=linux GOARCH=amd64 go build -o dst/svgu-linux-amd64 cmd/svgu/svgu.go
-      GOOS=linux GOARCH=arm64 go build -o dst/svgu-linux-arm64 cmd/svgu/svgu.go
-      GOOS=linux GOARCH=riscv64 go build -o dst/svgu-linux-riscv64 cmd/svgu/svgu.go
-      GOOS=linux GOARCH=ppc64le go build -o dst/svgu-linux-ppc64le cmd/svgu/svgu.go
-      GOOS=linux GOARCH=ppc64 go build -o dst/svgu-linux-ppc64 cmd/svgu/svgu.go
-      GOOS=darwin GOARCH=amd64 go build -o dst/svgu-darwin-amd64 cmd/svgu/svgu.go
-      GOOS=darwin GOARCH=arm64 go build -o dst/svgu-darwin-arm64 cmd/svgu/svgu.go
-      GOOS=windows GOARCH=amd64 go build -o dst/svgu-windows-amd64 cmd/svgu/svgu.go
-      GOOS=windows GOARCH=arm64 go build -o dst/svgu-windows-arm64 cmd/svgu/svgu.go
-      GOOS=plan9 GOARCH=amd64 go build -o dst/svgu-plan9-amd64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=amd64 go build -o svgu-linux-amd64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=arm64 go build -o svgu-linux-arm64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=riscv64 go build -o svgu-linux-riscv64 cmd/svgu/svgu.go
+      GOOS=linux GOARCH=ppc64le go build -o svgu-linux-ppc64le cmd/svgu/svgu.go
+      GOOS=linux GOARCH=ppc64 go build -o svgu-linux-ppc64 cmd/svgu/svgu.go
+      GOOS=darwin GOARCH=amd64 go build -o svgu-darwin-amd64 cmd/svgu/svgu.go
+      GOOS=darwin GOARCH=arm64 go build -o svgu-darwin-arm64 cmd/svgu/svgu.go
+      GOOS=windows GOARCH=amd64 go build -o svgu-windows-amd64 cmd/svgu/svgu.go
+      GOOS=windows GOARCH=arm64 go build -o svgu-windows-arm64 cmd/svgu/svgu.go
+      GOOS=plan9 GOARCH=amd64 go build -o svgu-plan9-amd64 cmd/svgu/svgu.go
 triggers:
   - action: email
     condition: always
