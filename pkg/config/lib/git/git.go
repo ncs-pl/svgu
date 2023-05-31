@@ -4,7 +4,7 @@ package git
 
 import (
 	_ "embed"
-	"go.nc0.fr/svgu/pkg/config"
+	"go.nc0.fr/svgu/pkg/config/lib/prelude"
 	"go.starlark.net/starlark"
 	"go.starlark.net/starlarkstruct"
 	"sync"
@@ -23,7 +23,7 @@ func LoadGitModule(t *starlark.Thread) (starlark.StringDict, error) {
 	once.Do(func() {
 		env := starlark.StringDict{
 			"module": starlark.NewBuiltin("module",
-				config.InternModule),
+				prelude.InternModule),
 			"make_module": starlark.NewBuiltin("mod",
 				starlarkstruct.MakeModule),
 		}

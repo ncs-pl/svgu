@@ -6,16 +6,11 @@ import (
 	"go.nc0.fr/svgu/pkg/config/lib/fossil"
 	"go.nc0.fr/svgu/pkg/config/lib/git"
 	"go.nc0.fr/svgu/pkg/config/lib/hg"
+	"go.nc0.fr/svgu/pkg/config/lib/prelude"
 	"go.nc0.fr/svgu/pkg/config/lib/svn"
 	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
-	"strings"
 )
-
-// https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names
-const invalidName string = "..\\/<>:\"|?* \t\n\r\b\findex"
-
-var registered types.Index
 
 // ExecConfig configures the Starlark environment and executes the given
 // configuration file "fl".
@@ -29,113 +24,35 @@ func ExecConfig(fl string) (*types.Index, error) {
 
 	// TODO(nc0): add built-ins
 	env := starlark.StringDict{
-		"index":  starlark.NewBuiltin("index", InternIndex),
-		"module": starlark.NewBuiltin("module", InternModule),
+		"index":  starlark.NewBuiltin("index", prelude.InternIndex),
+		"module": starlark.NewBuiltin("module", prelude.InternModule),
 	}
 
-	registered = types.Index{}
+	prelude.Registered = types.Index{
+		Domain:  "",
+		Modules: make(map[string]types.Module),
+	}
 	if _, err := starlark.ExecFile(th, fl, nil, env); err != nil {
 		return &types.Index{}, err
 	}
 
-	return &registered, nil
+	return &prelude.Registered, nil
 }
 
 // load loads a module from the given path.
 func load(t *starlark.Thread, module string) (starlark.StringDict, error) {
 	switch module {
-	case "git.star": // git
+	case "@svgu/git.star": // git
 		return git.LoadGitModule(t)
-	case "hg.star": // mercurial
+	case "@svgu/hg.star": // mercurial
 		return hg.LoadHgModule(t)
-	case "svn.star": // subversion
+	case "@svgu/svn.star": // subversion
 		return svn.LoadSvnModule(t)
-	case "fossil.star": // fossil
+	case "@svgu/fossil.star": // fossil
 		return fossil.LoadFossilModule(t)
-	case "bzr.star": // bazaar
+	case "@svgu/bzr.star": // bazaar
 		return bzr.LoadBzrModule(t)
 	default:
 		return nil, fmt.Errorf("unknown module %q", module)
 	}
-}
-
-// Injected built-ins.
-
-// InternIndex represents the built-in function "index".
-// index(domain) initializes a new index with the given domain.
-func InternIndex(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
-	kwargs []starlark.Tuple) (starlark.Value, error) {
-	var domain string
-	if err := starlark.UnpackArgs("index", args, kwargs,
-		"domain", &domain); err != nil {
-		return nil, err
-	}
-
-	registered.SetDomain(domain)
-
-	return starlark.None, nil
-}
-
-// InternModule represents the built-in function "module".
-// module(name, vcs, repo, dir, file) registers a new module into the
-// index.
-func InternModule(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
-	kwargs []starlark.Tuple) (starlark.Value, error) {
-
-	var name, vcs, repo, dir, file string
-	if err := starlark.UnpackArgs("module", args, kwargs, "name",
-		&name, "vcs", &vcs, "repo", &repo, "dir", &dir, "file", &file); err != nil {
-		return nil, err
-	}
-
-	if registered.Domain == "" {
-		return nil, fmt.Errorf("index not initialized")
-	}
-
-	if name == "" {
-		return nil, fmt.Errorf("module name cannot be empty")
-	}
-
-	if vcs == "" {
-		return nil, fmt.Errorf("module %q vcs cannot be empty", name)
-	}
-
-	if repo == "" {
-		return nil, fmt.Errorf("module %q repo cannot be empty", name)
-	}
-
-	// Check for name conditions.
-	if strings.Contains(invalidName, name) {
-		return nil, fmt.Errorf("module %q name is invalid", name)
-	}
-
-	if registered.CheckModule(name) {
-		return nil, fmt.Errorf("module %q already exists", name)
-	}
-
-	var v types.Vcs
-	switch vcs {
-	case "git":
-		v = types.VcsGit
-	case "hg":
-		v = types.VcsMercurial
-	case "svn":
-		v = types.VcsSubversion
-	case "fossil":
-		v = types.VcsFossil
-	case "bzr":
-		v = types.VcsBazaar
-	default:
-		return nil, fmt.Errorf("unknown vcs %q", vcs)
-	}
-
-	registered.AddModule(name, types.Module{
-		Path: name,
-		Vcs:  v,
-		Repo: repo,
-		Dir:  dir,
-		File: file,
-	})
-
-	return starlark.None, nil
 }

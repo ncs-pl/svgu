@@ -4,13 +4,13 @@ _GIT = "git"
 
 # https://github.com/github/renaming
 _GITHUB_DEFAULT_INSTANCE = "https://github.com"
-_GITHUB_DEFAULT_MASTER = "main"
+_GITHUB_DEFAULT_REF = "main"
 
 def _github(
         name,
         user,
         repo,
-        ref = _GITHUB_DEFAULT_MASTER,
+        ref = _GITHUB_DEFAULT_REF,
         instance = _GITHUB_DEFAULT_INSTANCE):
     """Register a module hosted on GitHub.
 
@@ -19,7 +19,7 @@ def _github(
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
         ref (str): The name of the ref.
-            Defaults to `git.GITHUB_DEFAULT_MASTER`.
+            Defaults to `git.GITHUB_DEFAULT_REF`.
         instance (str): The name of the instance.
             Defaults to `git.GITHUB_DEFAULT_INSTANCE`.
     """
@@ -34,7 +34,7 @@ def _github(
     )
 
 _SOURCEHUT_DEFAULT_INSTANCE = "git.sr.ht"
-_SOURCEHUT_DEFAULT_MASTER = "master"
+_SOURCEHUT_DEFAULT_REF = "master"
 
 # TODO(nc0): See the status for organizations and groups, as they are expected
 #   to use another symbol than `~`.
@@ -42,7 +42,7 @@ def _sourcehut(
         name,
         user,
         repo,
-        ref = _SOURCEHUT_DEFAULT_MASTER,
+        ref = _SOURCEHUT_DEFAULT_REF,
         instance = _SOURCEHUT_DEFAULT_INSTANCE):
     """Register a module hosted on Source Hut's Git hosting.
 
@@ -51,7 +51,7 @@ def _sourcehut(
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
         ref (str): The name of the ref.
-            Defaults to `git.SOURCEHUT_DEFAULT_MASTER`.
+            Defaults to `git.SOURCEHUT_DEFAULT_REF`.
         instance (str): The name of the instance.
             Defaults to `git.SOURCEHUT_DEFAULT_INSTANCE`.
     """
@@ -68,13 +68,13 @@ def _sourcehut(
 
 # https://about.gitlab.com/blog/2021/03/10/new-git-default-branch-name/
 _GITLAB_DEFAULT_INSTANCE = "https://gitlab.com"
-_GITLAB_DEFAULT_MASTER = "main"
+_GITLAB_DEFAULT_REF = "main"
 
 def _gitlab(
         name,
         user,
         repo,
-        ref = _GITLAB_DEFAULT_MASTER,
+        ref = _GITLAB_DEFAULT_REF,
         instance = _GITLAB_DEFAULT_INSTANCE):
     """Register a module hosted on GitLab.
 
@@ -83,7 +83,7 @@ def _gitlab(
         user (str): The name of the user or organization.
         repo (str): The name of the repository.
         ref (str): The name of the ref.
-            Defaults to `git.GITLAB_DEFAULT_MASTER`.
+            Defaults to `git.GITLAB_DEFAULT_REF`.
         instance (str): The name of the instance.
             Defaults to `git.GITLAB_DEFAULT_INSTANCE`.
     """
@@ -130,7 +130,7 @@ def _bitbucket(
         repo = "%s/%s/%s" % (instance, workspace, repo),
         dir = "%s/%s/%s/src/%s{/dir}" % (instance, workspace, repo, ref),
         file = "%s/%s/%s/src/%s{/dir}/{file}#{file}-{line}" %
-               (instance, user, repo, ref),
+               (instance, workspace, repo, ref),
     )
 
 _GITILES_DEFAULT_REF = "master"
