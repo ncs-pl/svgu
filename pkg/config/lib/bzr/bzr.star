@@ -1,8 +1,8 @@
 # Utilities to index Go modules hosted on Bazaar repositories.
 
-_BZR = "bzr"
+_BAZAAR = "bzr"
 
 bzr = make_module(
     "bzr",
-    BZR = _BZR,
+    BAZAR = _BAZAAR,
 )

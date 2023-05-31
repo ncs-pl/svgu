@@ -1,8 +1,8 @@
 # Utilities to index Go modules hosted on Mercurial repositories.
 
-_HG = "hg"
+_MERCURIAL = "hg"
 
 hg = make_module(
     "hg",
-    HG = _HG,
+    MERCURIAL = _MERCURIAL,
 )
