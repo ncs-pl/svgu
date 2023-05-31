@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"go.nc0.fr/svgu/pkg/config/lib/bzr"
 	"go.nc0.fr/svgu/pkg/config/lib/fossil"
 	"go.nc0.fr/svgu/pkg/config/lib/git"
 	"go.nc0.fr/svgu/pkg/config/lib/hg"
@@ -47,6 +48,8 @@ func load(t *starlark.Thread, module string) (starlark.StringDict, error) {
 		return svn.LoadSvnModule(t)
 	case "fossil.star": // fossil
 		return fossil.LoadFossilModule(t)
+	case "bzr.star": // bazaar
+		return bzr.LoadBzrModule(t)
 	default:
 		return nil, fmt.Errorf("unknown module %q", module)
 	}
