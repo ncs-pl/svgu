@@ -1,76 +1,47 @@
-# staticgovanityurls
+# SVGU
 
-`staticgovanityurls` (Static Go Vanity URLs) is a simple script that generates
-documents to index Go modules on custom domain names.
+SVGU (short for *Static, Vanity, Go URL*) is a flexible and easy to use
+tool for creating vanity URLs for your Go projects.
+It allows publishing a Go module under a custom domain name, without the need
+to use your code forge's domain name.
 
-## Usage
+For example, if you have a project hosted on GitHub, you can use SVGU to
+publish it under a custom domain name, such as `myproject.com/foo` instead of
+`github.com/myproject/foo`.
 
-Using the script is dead-simple! All you need is a valid configuration file and 
-a copy of the compiled executable. If you have Go installed on the host, you 
-can install the script by running:
+## How it works
 
-```bash
-$ go install go.nc0.fr/staticgovanityurls@latest
+SVGU requires a configuration file, usually named `DOMAINS.star`, which
+describes the modules to export.
+
+The configuration file is a [Starlark](https://starlark.net) script, which
+allows for a lot of flexibility.
+Starlark is a subset of Python for configuration files, and is used by the
+[Bazel](https://bazel.build) build system and others.
+It is a simple language, and you don't need to know Python to use it.
+
+See the [reference documentation](doc/references.md) for more information.
+
+Once the configuration file is ready, you can run SVGU to generate the
+necessary files, and then publish them on your web server.
+
+```shell
+$ svgu
 ```
 
-Once the binary is installed – and available in $PATH, you will need to write a 
-configuration file. 
-Here is a sample one:
+This will generate a `dst` directory containing the files to publish.
 
-```yaml
-hostname: "go.example.com"
-paths: 
-    - prefix: "foo" 
-      repository: "https://github.com/example/foo.git"
-      vcs: "git" 
-      dir: "https://github.com/example/foo/tree/master{/dir}"
-      file: "https://github.com/example/foo/blob/master{/dir}/{file}#L{line}"
-    - prefix: "bar" 
-      repository: "https://svn.example.com/~baz/bar.svn"
-      vcs: "svn" 
-      dir: "https://svn.example.com/~baz/bar.svn{/dir}"
-      file: "https://svn.example.com/~baz/bar.svn{/dir}/{file}#{line}"
-```
+## Documentation
 
-When you are ready, you can generate HTML documents by executing:
-
-```bash
-$ staticgovanityurls -i=vanity.yaml -o=dist
-```
-
-> The `-i` flag is used to specify the input file, while `-o` is used to
-> define the output directory.
-
-Inside the `dist` directory, you should find a set of files as follows:
-
-![Directory listing](doc/example-files.png)
-
-## Configuration
-
-The configuration file is a YAML document that contains the following fields:
-
-| Field      | Type   | Description                     |
-| ---------- | ------ | ------------------------------- |
-| `hostname` | string | The hostname of the vanity URL. |
-| `paths`    | array  | A list of paths to index.       |
-
-Each path is a map that contains the following fields:
-
-| Field        | Type   | Description                                                                                                                                       |
-| ------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`     | string | The prefix of the vanity URL.                                                                                                                     |
-| `repository` | string | The URL of the repository.                                                                                                                        |
-| `vcs`        | string | The version control system used: `git`, `svn`, `bzr`, `hg` or `fossil`.                                                                           |
-| `dir`        | string | URL to a document listing the files inside a directory of the module. It supports substitutions from the `go-source` meta tag.[^go-source]        |
-| `file`       | string | URL to a document listing the content – lines – inside a file of the module. It supports substitutions from the `go-source` meta tag[^go-source]. |
-
-[^go-source]: https://github.com/golang/gddo/wiki/Source-Code-Links
+- [Getting started](doc/getting-started.md)
+- [Reference documentation](doc/references.md)
+- [Bug tracker](https://todo.sr.ht/~n1c00o/svgu)
+- [Mailing list](https://lists.sr.ht/~n1c00o/svgu)
+- [Source code](https://git.sr.ht/~n1c00o/svgu)
+- [Project page](https://sr.ht/~n1c00o/svgu)
 
 ## License
 
-The project is governed by a BSD-style license that can be found in the 
-[LICENSE](LICENSE) file.
-
-The Gopher illustrations used are under the [CC0](https://github.com/egonelbre/gophers/blob/master/LICENSE-CC0)
-license.
-
+The SVGU project is governed by a [BSD-style license](LICENSE).
+The documentation is licensed under the [Creative Commons Attribution 4.0
+International License](https://creativecommons.org/licenses/by/4.0/).

@@ -9,14 +9,14 @@ The sources for the environment are located inside the
 
 ## Starlark
 
-[Starlark](https://starlark.net) is a dialect of Python designed for use as a
+[Starlark][starlark-link] is a dialect of Python designed for use as a
 configuration language. It is simple, safe, and expressive.
 Originally called Skylark, Starlark is commonly used with
-[Bazel](https://bazel.build)-like build systems, but it is not tied to any
+[Bazel][bazel-link]-like build systems, but it is not tied to any
 particular tool or project.
 
 SVGU's Starlark environment is based on the
-[Starlark Go](https://go.starlark.net) implementation open sourced by Google.
+[Starlark Go][starlark-go] implementation open sourced by Google.
 
 ## Table of Contents
 
@@ -568,3 +568,9 @@ module(
 [gerrit-link]: https://www.gerritcodereview.com/
 
 [go-source-tag]: https://github.com/golang/gddo/wiki/Source-Code-Links
+
+[starlark-link]: https://github.com/bazelbuild/starlark
+
+[starlark-go]: https://github.com/google/starlark-go
+
+[bazel-link]: https://bazel.build/
