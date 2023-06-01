@@ -8,6 +8,11 @@ This document will help you get started with SVGU.
   + [From source](#compiling-from-source)
   + [Pre-built binaries](#pre-built-binaries)
   + [Docker](#docker)
+- [Usage](#usage)
+  + [Configuration](#configuration)
+  + [Generating the HTML files](#generating-the-html-files)
+  + [Hosting the HTML files](#hosting-the-html-files)
+- [Advanced configuration](#advanced-configuration)
 
 ## Installation
 
@@ -137,7 +142,7 @@ Here is a non-exhaustive list of web servers that support URL rewriting:
 - [GitHub Pages](https://pages.github.com/) does it by default
 - ...
 
-### Advanced configuration
+## Advanced configuration
 
 As you can see, the configuration file is very simple. However, it is also
 a bit boilerplate-heavy, especially with the template URLs for `dir` and
