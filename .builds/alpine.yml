@@ -8,9 +8,6 @@ artifacts:
   - svgu/testdata/dst.tar.gz
   - svgu/svgu-linux-amd64
   - svgu/svgu-linux-arm64
-  - svgu/svgu-linux-riscv64
-  - svgu/svgu-linux-ppc64le
-  - svgu/svgu-linux-ppc64
   - svgu/svgu-darwin-amd64
   - svgu/svgu-darwin-arm64
   - svgu/svgu-windows-amd64
@@ -29,9 +26,6 @@ tasks:
       
       GOOS=linux GOARCH=amd64 go build -o svgu-linux-amd64 cmd/svgu/svgu.go
       GOOS=linux GOARCH=arm64 go build -o svgu-linux-arm64 cmd/svgu/svgu.go
-      GOOS=linux GOARCH=riscv64 go build -o svgu-linux-riscv64 cmd/svgu/svgu.go
-      GOOS=linux GOARCH=ppc64le go build -o svgu-linux-ppc64le cmd/svgu/svgu.go
-      GOOS=linux GOARCH=ppc64 go build -o svgu-linux-ppc64 cmd/svgu/svgu.go
       GOOS=darwin GOARCH=amd64 go build -o svgu-darwin-amd64 cmd/svgu/svgu.go
       GOOS=darwin GOARCH=arm64 go build -o svgu-darwin-arm64 cmd/svgu/svgu.go
       GOOS=windows GOARCH=amd64 go build -o svgu-windows-amd64 cmd/svgu/svgu.go

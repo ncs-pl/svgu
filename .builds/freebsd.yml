@@ -5,10 +5,8 @@ packages:
 sources:
   - https://git.sr.ht/~n1c00o/svgu
 artifacts:
-  - svgu/testdata/dst.tar.gz
   - svgu/svgu-freebsd-amd64
   - svgu/svgu-freebsd-arm64
-  - svgu/svgu-freebsd-riscv64
   - svgu/svgu-openbsd-amd64
   - svgu/svgu-openbsd-arm64
   - svgu/svgu-netbsd-amd64
@@ -28,7 +26,6 @@ tasks:
       
       GOOS=freebsd GOARCH=amd64 go build -o svgu-freebsd-amd64 cmd/svgu/svgu.go
       GOOS=freebsd GOARCH=arm64 go build -o svgu-freebsd-arm64 cmd/svgu/svgu.go
-      GOOS=freebsd GOARCH=riscv64 go build -o svgu-freebsd-riscv64 cmd/svgu/svgu.go
       GOOS=openbsd GOARCH=amd64 go build -o svgu-openbsd-amd64 cmd/svgu/svgu.go
       GOOS=openbsd GOARCH=arm64 go build -o svgu-openbsd-arm64 cmd/svgu/svgu.go
       GOOS=netbsd GOARCH=amd64 go build -o svgu-netbsd-amd64 cmd/svgu/svgu.go
