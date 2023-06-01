@@ -24,7 +24,11 @@ SVGU's Starlark environment is based on the
     + [index](#index)
     + [module](#module)
 - [Bazaar](#bazaar)
-    + [bzr.BAZAAR](#bzrbazaar)
+  + [bzr.BAZAAR](#bzrbazaar)
+  + [bzr.LAUNCHPAD_DEFAULT_INSTANCE](#bzrlaunchpad_default_instance)
+  + [bzr.LAUNCHPAD_DEFAULT_REV](#bzrlaunchpad_default_rev)
+  + [brz.LAUNCHPAD_DEFAULT_BRANCH](#brzlaunchpad_default_branch)
+  + [bzr.launchpad](#bzrlaunchpad)
 - [Fossil](#fossil)
     + [fossil.FOSSIL](#fossilfossil)
 - [Git](#git)
@@ -44,7 +48,10 @@ SVGU's Starlark environment is based on the
   + [git.bitbucket](#gitbitbucket)
   + [git.gitiles](#gitgitiles)
 - [Mercurial](#mercurial)
-    + [hg.MERCURIAL](#hgmercurial)
+  + [hg.MERCURIAL](#hgmercurial)
+  + [hg.SOURCEHUT_DEFAULT_INSTANCE](#hgsourcehut_default_instance)
+  + [hg.SOURCEHUT_DEFAULT_REV](#hgsourcehut_default_rev)
+  + [hg.sourcehut](#hgsourcehut)
 - [Subversion](#subversion)
     + [svn.SUBVERSION](#svnsubversion)
 
@@ -193,6 +200,22 @@ A macro that registers a module hosted on
 | `branch`   | `string` | The name of the branch. Defaults to [`bzr.LAUNCHPAD_DEFAULT_BRANCH`](#bzrlaunchpad_default_branch)                |
 | `rev`      | `string` | The revision number. Defaults to [`bzr.LAUNCHPAD_DEFAULT_REV`](#bzrlaunchpad_default_rev)                         |
 | `instance` | `string` | The URL of the Launchpad instance. Defaults to [`bzr.LAUNCHPAD_DEFAULT_INSTANCE`](#bzrlaunchpad_default_instance) |
+
+#### Example
+
+```starlark
+load("@svgu/bzr", "bzr")
+
+index(domain = "go.example.com")
+
+# Will be available as `go.example.com/foo`.
+
+bzr.launchpad(
+    name = "foo",
+    user = "bar",
+    repo = "foo",
+)
+```
 
 ## Fossil
 
@@ -551,6 +574,62 @@ module(
 )
 ```
 
+### hg.SOURCEHUT_DEFAULT_INSTANCE
+
+`"https://hg.sr.ht"` \
+A constant containing the default instance to use when the repository is hosted
+on [Source Hut Mercurial][sourcehut-hg-link] hosting.
+
+### hg.SOURCEHUT_DEFAULT_REV
+
+`"tip"` \
+A constant containing the default revision (branch, ...) to use when the
+repository is hosted on [Source Hut Mercurial][sourcehut-hg-link] hosting.
+
+### hg.sourcehut
+
+A macro that registers a module hosted on
+[Source Hut Mercurial][sourcehut-hg-link] hosting.
+
+> Note: Source Hut's Mercurial hosting is still in beta. Organization support
+> is not yet available.
+
+#### Parameters
+
+| Name       | Type     | Description                                                                                                  |
+|------------|----------|--------------------------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                                      |
+| `user`     | `string` | The Source Hut user.                                                                                         |
+| `repo`     | `string` | The Source Hut repository name.                                                                              |
+| `instance` | `string` | The Source Hut instance to use. Default to [`hg.SOURCEHUT_DEFAULT_INSTANCE`](#hgsourcehut_default_instance). |
+| `rev`      | `string` | The revision (branch, ...) to use. Default to [`hg.SOURCEHUT_DEFAULT_REV`](#hgsourcehut_default_rev).        |
+
+#### Example
+
+```starlark
+load("@svgu/hg", "hg")
+
+index(domain = "go.example.com")
+
+# By default, the function assumes that the repository is hosted on
+# https://hg.sr.ht and the revision is `tip`.
+
+hg.sourcehut(
+    name = "foo",
+    user = "example",
+    repo = "foo",
+)
+
+# You can override the default revision and instance.
+hg.sourcehut(
+    name = "bar",
+    user = "example",
+    repo = "bar",
+    rev = "default",
+    instance = "https://hg.example.com",
+)
+```
+
 ## Subversion
 
 The [svn](../pkg/config/lib/svn/svn.star) (Subversion) module contains
@@ -610,3 +689,5 @@ module(
 [bazel-link]: https://bazel.build/
 
 [launchpad-bzr-link]: https://launchpad.net/bzr
+
+[sourcehut-hg-link]: https://hg.sr.ht/
