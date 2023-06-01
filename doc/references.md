@@ -160,6 +160,40 @@ module(
 )
 ```
 
+### bzr.LAUNCHPAD_DEFAULT_INSTANCE
+
+`"https://bazaar.launchpad.net` \
+A constant containing the default instance of the
+[Launchpad Bazaar hosting][launchpad-bzr-link] service.
+
+### bzr.LAUNCHPAD_DEFAULT_REV
+
+`"head:"` \
+A constant containing the default revision number to use when the repository
+is hosted on [Launchpad Bazaar hosting][launchpad-bzr-link] service.
+
+### bzr.LAUNCHPAD_DEFAULT_BRANCH
+
+`"trunk"` \
+A constant containing the default branch name to use when the repository
+is hosted on [Launchpad Bazaar hosting][launchpad-bzr-link] service.
+
+### bzr.launchpad
+
+A macro that registers a module hosted on
+[Launchpad Bazaar hosting][launchpad-bzr-link] service.
+
+#### Parameters
+
+| Name       | Type     | Description                                                                                                       |
+|------------|----------|-------------------------------------------------------------------------------------------------------------------|
+| `name`     | `string` | The name of the module.                                                                                           |
+| `user`     | `string` | The name of the user or organization that owns the repository.                                                    |
+| `repo`     | `string` | The name of the repository.                                                                                       |
+| `branch`   | `string` | The name of the branch. Defaults to [`bzr.LAUNCHPAD_DEFAULT_BRANCH`](#bzrlaunchpad_default_branch)                |
+| `rev`      | `string` | The revision number. Defaults to [`bzr.LAUNCHPAD_DEFAULT_REV`](#bzrlaunchpad_default_rev)                         |
+| `instance` | `string` | The URL of the Launchpad instance. Defaults to [`bzr.LAUNCHPAD_DEFAULT_INSTANCE`](#bzrlaunchpad_default_instance) |
+
 ## Fossil
 
 The [fossil](../pkg/config/lib/fossil/fossil.star) module contains a set
@@ -574,3 +608,5 @@ module(
 [starlark-go]: https://github.com/google/starlark-go
 
 [bazel-link]: https://bazel.build/
+
+[launchpad-bzr-link]: https://launchpad.net/bzr
