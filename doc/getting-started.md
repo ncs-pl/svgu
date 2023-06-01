@@ -19,7 +19,7 @@ SVGU is a Go program, and can be installed quickly using `go install`:
 
 ```shell
 # Change "latest" to the Git ref you want to install.
-$ go install go.nc0.fr/svgu@latest
+$ go install go.nc0.fr/svgu/cmd/svgu@latest
 ```
 
 > Note: SVGU requires Go 1.16 or later.
