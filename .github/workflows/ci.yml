@@ -74,9 +74,6 @@ jobs:
           export GOARCH=amd64
           go build -o svgu-windows-amd64.exe cmd/svgu/svgu.go
 
-          export GOARCH=arm64
-          go build -o svgu-windows-arm64.exe cmd/svgu/svgu.go
-
           # Plan 9 from Bell Labs
           export GOOS=plan9
 
