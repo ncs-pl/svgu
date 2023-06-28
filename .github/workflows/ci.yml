@@ -127,5 +127,5 @@ jobs:
 
             ${{ github.event.head_commit.url }}
           makeLatest: true
-          tag: ${{ github.ref }}
-          name: ${{ github.ref }}
+          tag: ${{ github.sha }}
+          name: Commit ${{ github.sha }}
