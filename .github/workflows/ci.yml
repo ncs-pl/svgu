@@ -1,6 +1,7 @@
 name: CI
 on:
   push:
+    branches: [master]
 jobs:
   lint:
     name: Lint
@@ -37,94 +38,3 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go build -v -o svgu.o cmd/svgu/svgu.go
-  release:
-    name: Release
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
-        with:
-          go-version: "1.16"
-      - name: Cross-platform build
-        run: |
-          mkdir out
-
-          # GNU/Linux
-          export GOOS=linux 
-
-          export GOARCH=amd64 
-          go build -o svgu-linux-amd64 cmd/svgu/svgu.go
-
-          export GOARCH=arm64
-          go build -o svgu-linux-arm64 cmd/svgu/svgu.go
-
-          # macOS
-          export GOOS=darwin
-
-          export GOARCH=amd64
-          go build -o svgu-darwin-amd64 cmd/svgu/svgu.go
-
-          export GOARCH=arm64
-          go build -o svgu-darwin-arm64 cmd/svgu/svgu.go
-
-          # Microsoft Windows
-          export GOOS=windows 
-
-          export GOARCH=amd64
-          go build -o svgu-windows-amd64.exe cmd/svgu/svgu.go
-
-          # Plan 9 from Bell Labs
-          export GOOS=plan9
-
-          export GOARCH=amd64
-          go build -o svgu-plan9-amd64 cmd/svgu/svgu.go
-
-          # FreeBSD
-          export GOOS=freebsd
-
-          export GOARCH=amd64
-          go build -o svgu-freebsd-amd64 cmd/svgu/svgu.go
-
-          export GOARCH=arm64
-          go build -o svgu-freebsd-arm64 cmd/svgu/svgu.go
-
-          # OpenBSD
-          export GOOS=openbsd
-
-          export GOARCH=amd64
-          go build -o svgu-openbsd-amd64 cmd/svgu/svgu.go
-
-          export GOARCH=arm64
-          go build -o svgu-openbsd-arm64 cmd/svgu/svgu.go
-
-          # NetBSD
-          export GOOS=netbsd
-
-          export GOARCH=amd64
-          go build -o svgu-netbsd-amd64 cmd/svgu/svgu.go
-
-          export GOARCH=arm64 
-          go build -o svgu-netbsd-arm64 cmd/svgu/svgu.go
-
-          # OpenSolaris
-          export GOOS=solaris
-
-          export GOARCH=amd64
-          go build -o svgu-solaris-amd64 cmd/svgu/svgu.go  
-
-          # DragonFly BSD
-          export GOOS=dragonfly
-
-          export GOARCH=amd64
-          go build -o svgu-dragonfly-amd64 cmd/svgu/svgu.go
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: svgu-*
-          body: |
-            By ${{ github.actor }} on ${{ github.event_name }}:
-            ${{ github.event.head_commit.message }}
-
-            ${{ github.event.head_commit.url }}
-          tag: ${{ github.event.head_commit.id }}
-          name: Commit ${{ github.sha }}
