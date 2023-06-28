@@ -3,12 +3,13 @@ package main // import "go.nc0.fr/svgu"
 
 import (
 	"flag"
-	"go.nc0.fr/svgu/pkg/config"
-	"go.nc0.fr/svgu/pkg/types"
 	"log"
 	"os"
 	"path/filepath"
 	"sync"
+
+	"go.nc0.fr/svgu/pkg/config"
+	"go.nc0.fr/svgu/pkg/types"
 )
 
 var (
@@ -68,7 +69,7 @@ func main() {
 	}
 
 	if err := os.MkdirAll(*out, 0755); err != nil {
-		log.Fatalf("could not create output directory %q: %v", out, err)
+		log.Fatalf("could not create output directory %q: %v", *out, err)
 	}
 
 	// Generate the index file.
