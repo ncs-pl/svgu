@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.16"
+      - run: |
+          go fmt ./...
+          go vet ./...
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.16"
+      - run: |
+          cd testdata
+          go run ../cmd/svgu/svgu.go -o=dst -v -c=DOMAINS.star
+  build:
+    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        go: ["1.16", "1.17", "1.18", "1.19", "1.20"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
+      - run: go build -v -o svgu.o cmd/svgu/svgu.go
