@@ -54,6 +54,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: svgu-nc0-fr
-          directory: dst
+          directory: website
           branch: master # production-branch
           wranglerVersion: "3"
