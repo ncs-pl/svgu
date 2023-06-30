@@ -35,10 +35,8 @@ This will generate a `dst` directory containing the files to publish.
 
 - [Getting started](doc/getting-started.md)
 - [Reference documentation](doc/references.md)
-- [Bug tracker](https://todo.sr.ht/~n1c00o/svgu)
-- [Mailing list](https://lists.sr.ht/~n1c00o/svgu)
-- [Source code](https://git.sr.ht/~n1c00o/svgu)
-- [Project page](https://sr.ht/~n1c00o/svgu)
+- [Bug tracker](https://github.com/nseezero/svgu/issues)
+- [Source code](https://github.com/nseezero/svgu)
 
 ## License
 
