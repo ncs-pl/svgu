@@ -2,6 +2,8 @@ name: CI
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
 jobs:
   lint:
     name: Lint
@@ -41,19 +43,3 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go build -v -o svgu.o cmd/svgu/svgu.go
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    timeout-minutes: 2
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: svgu-nc0-fr
-          directory: website
-          branch: master # production-branch
-          wranglerVersion: "3"
