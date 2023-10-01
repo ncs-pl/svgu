@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - directory: /
+    package-ecosystem: gomod 
+    rebase-strategy: auto
+    schedule:
+      timezone: Europe/Paris
+      interval: weekly
+      day: monday
+    assignees:
+      - nc0fr
+    reviewers:
+      - nc0fr
+    target-branch: master
+  - directory: /
+    package-ecosystem: github-actions
+    rebase-strategy: auto
+    schedule:
+      timezone: Europe/Paris
+      interval: weekly
+      day: monday
+    assignees:
+      - nc0fr
+    reviewers:
+      - nc0fr
+    target-branch: master
