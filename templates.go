@@ -31,7 +31,9 @@
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL license and that you accept its terms.
 
-package templates
+// HTML templates to generate for each module registered in the index.
+
+package main
 
 import (
 	"fmt"

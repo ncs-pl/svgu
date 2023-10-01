@@ -31,83 +31,35 @@
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL license and that you accept its terms.
 
-package types
+// Loader for the Starlark execution system with a pre-defined environment.
+
+package main
 
 import (
-	"go.nc0.fr/svgu/pkg/templates"
-	"os"
-	"path"
-	"sync"
+	"go.starlark.net/starlark"
 )
 
-// Index is the global object representing the Starlark configuration.
-type Index struct {
-	Domain  string
-	Modules map[string]*Module
-	// internal
-	lock sync.Mutex
-}
-
-// SetDomain sets the domain of the index.
-func (i *Index) SetDomain(d string) {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-	i.Domain = d
-}
-
-// AddModule adds a module to the index.
-func (i *Index) AddModule(n string, m *Module) {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-	i.Modules[n] = m
-}
-
-// GetModule returns a module from the index.
-func (i *Index) GetModule(n string) *Module {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-	return i.Modules[n]
-}
-
-// RemoveModule removes a module from the index.
-func (i *Index) RemoveModule(n string) {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-	delete(i.Modules, n)
-}
-
-// CheckModule checks if a module is in the index.
-func (i *Index) CheckModule(n string) bool {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-	_, ok := i.Modules[n]
-	return ok
-}
-
-// GenerateFile generates the index file.
-func (i *Index) GenerateFile(out string) error {
-	i.lock.Lock()
-	defer i.lock.Unlock()
-
-	f := path.Join(out, "index.html")
-
-	// Create the file.
-	fd, err := os.Create(f)
-	if err != nil {
-		return err
-	}
-	defer func(fd *os.File) {
-		err := fd.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(fd)
-
-	// Execute the template and write the output to the file.
-	if err := templates.ExecIndex(fd,
-		"https://pkg.go.dev", 2); err != nil {
-		return err
+// ExecConfig configures the Starlark environment and executes the given
+// configuration file "fl".
+// The function returns a list of registered modules, or an error if something
+// went wrong.
+func ExecConfig(fl string) (*Index, error) {
+	th := &starlark.Thread{
+		Name: "exec " + fl,
 	}
 
-	return nil
+	env := starlark.StringDict{
+		"index":  starlark.NewBuiltin("index", InternIndex),
+		"module": starlark.NewBuiltin("module", InternModule),
+	}
+
+	Registered = Index{
+		Domain:  "",
+		Modules: make(map[string]*Module),
+	}
+	if _, err := starlark.ExecFile(th, fl, nil, env); err != nil {
+		return &Index{}, err
+	}
+
+	return &Registered, nil
 }
