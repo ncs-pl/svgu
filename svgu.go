@@ -31,7 +31,9 @@
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL license and that you accept its terms.
 
-// The svgu tool.
+// Entry-point of the CLI program.
+
+// Package main implements the SVGU utility.
 package main // import "go.nc0.fr/svgu"
 
 import (
@@ -40,9 +42,6 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
-
-	"go.nc0.fr/svgu/pkg/config"
-	"go.nc0.fr/svgu/pkg/types"
 )
 
 var (
@@ -91,7 +90,7 @@ func main() {
 		log.Printf("executing configuration file %q", *cfg)
 	}
 
-	idx, err := config.ExecConfig(*cfg)
+	idx, err := ExecConfig(*cfg)
 	if err != nil {
 		log.Fatalf("could not execute configuration file %q: %v", *cfg, err)
 	}
@@ -123,7 +122,7 @@ func main() {
 	var mu sync.Mutex
 	for _, mod := range idx.Modules {
 		wg.Add(1)
-		go func(m *types.Module) {
+		go func(m *Module) {
 			defer wg.Done()
 			defer mu.Unlock()
 

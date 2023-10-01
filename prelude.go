@@ -31,11 +31,12 @@
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL license and that you accept its terms.
 
-package prelude
+// Prelude for the Starlark environment.
+
+package main
 
 import (
 	"fmt"
-	"go.nc0.fr/svgu/pkg/types"
 	"go.starlark.net/starlark"
 	"strings"
 )
@@ -44,7 +45,7 @@ import (
 const invalidName string = "..\\/<>:\"|?* \t\n\r\b\findex"
 
 // Registered represents the index of registered modules.
-var Registered types.Index
+var Registered Index
 
 // InternIndex represents the built-in function "index".
 // index(domain) initializes a new index with the given domain.
@@ -56,7 +57,7 @@ func InternIndex(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 		return nil, err
 	}
 
-	Registered.SetDomain(domain)
+	Registered.Domain = domain
 
 	return starlark.None, nil
 }
@@ -98,23 +99,23 @@ func InternModule(_ *starlark.Thread, _ *starlark.Builtin, args starlark.Tuple,
 		return nil, fmt.Errorf("module %q already exists", name)
 	}
 
-	var v types.Vcs
+	var v Vcs
 	switch vcs {
 	case "git":
-		v = types.VcsGit
+		v = VcsGit
 	case "hg":
-		v = types.VcsMercurial
+		v = VcsMercurial
 	case "svn":
-		v = types.VcsSubversion
+		v = VcsSubversion
 	case "fossil":
-		v = types.VcsFossil
+		v = VcsFossil
 	case "bzr":
-		v = types.VcsBazaar
+		v = VcsBazaar
 	default:
 		return nil, fmt.Errorf("unknown vcs %q", vcs)
 	}
 
-	Registered.AddModule(name, &types.Module{
+	Registered.AddModule(name, &Module{
 		Path: name,
 		Vcs:  v,
 		Repo: repo,
