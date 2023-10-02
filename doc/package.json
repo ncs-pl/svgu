@@ -1,0 +1,40 @@
+{
+  "name": "@nc0/svgu-doc",
+  "version": "1.0.0",
+  "description": "The documentation website of the SVGU utility.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "svgu",
+    "documentation",
+    "go",
+    "golang"
+  ],
+  "author": "Nicolas Paul <n@nc0.fr> (https://nc0.fr)",
+  "license": "CeCILL",
+  "homepage": "https://svgu.nc0.fr",
+  "bugs": {
+    "url": "https://github.com/nc0fr/svgu/issues",
+    "email": "n@nc0.fr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:nc0fr/svgu"
+  },
+  "dependencies": {
+    "next": "13.5.3",
+    "nextra": "2.13.1",
+    "nextra-theme-docs": "2.13.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.0",
+    "typescript": "5.2.2"
+  }
+}
