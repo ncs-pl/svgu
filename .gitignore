@@ -33,13 +33,6 @@
 
 /.vscode/
 /.idea/
-/dst/
 .env
 .DS_Store
-/testdata/dst/
-*.exe
-*.o
-*.out
-*.so
-*.a
-*.dll
+node_modules
