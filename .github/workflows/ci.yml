@@ -38,41 +38,30 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 4
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
-        with:
-          go-version: "1.16"
-      - run: |
-          go fmt ./...
-          go vet ./...
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
-        with:
-          go-version: "1.16"
-      - run: |
-          cd testdata
-          go run ../cmd/svgu/svgu.go -o=dst -v -c=DOMAINS.star
-  build:
-    name: Build
-    timeout-minutes: 5
+  ci:
+    name: Continuous Integration
     strategy:
+      fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        go: ["1.16", "1.17", "1.18", "1.19", "1.20"]
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        go-version: ["1.16", "1.17", "1.18", "1.19", "1.20", "1.21"]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go }}
-      - run: go build -v -o svgu.o cmd/svgu/svgu.go
+          go-version: ${{ matrix.go-version }}
+      - run: go fmt ./...
+        name: Check formatting
+      - run: go vet ./...
+        name: Vet for issues
+      - run: go test ./...
+        name: Run tests
+      - run: go build -o svgu.o
+        name: Build executable
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ matrix.os }}-go-${{ matrix.go-version }}
+          path: svgu.o
+          if-no-file-found: error
