@@ -36,4 +36,5 @@
 .env
 .DS_Store
 node_modules
-.next
+.next/
+out/
