@@ -53,11 +53,35 @@ For illustration, imagine you are using `example.com/foo` as a dependency,
 whose main origin is on GitHub. If suddenly the origin is moved to GitLab
 (for some particular reason), it will be transparent to you.
 
+## How Does it Work?
+
+SVGU works by generating a set of HTML files containing the
+required meta tags (incl.
+[`go-source`](https://github.com/golang/gddo/wiki/Source-Code-Links) and
+[`go-import`](https://go.dev/blog/publishing-go-modules)) by the standard Go
+toolchain. These documents also redirects users to the
+[Go documentation service](https://pkg.go.dev) for the requested module.
+
+The resulting directory of files can be hosted on any web server, with the only
+required configuration to rewrite URLs to remove the `.html` prefix (some
+call this behavior "Pretty URLs").
+
+> Here are links to various popular web servers enabling URL rewriting:
+> [Apache HTTPD](https://httpd.apache.org/docs/current/rewrite/remapping.html),
+> [Caddy](https://caddyserver.com/docs/caddyfile/directives/rewrite),
+> [NGINX](https://www.nginx.com/blog/creating-nginx-rewrite-rules/),
+> [Cloudflare Pages](https://pages.cloudflare.com) and
+> [GitHub Pages](https://pages.github.com/) do this by default,
+> ...
+
+## Installation
+
 ## Licensing
 
-SVGU is a free software, available under the CeCILL 2.1 license contract.
-This documentation is available under the Creative Commons
-Attribution-ShareAlike 4.0 license.
+SVGU is a free software, available under the
+[CeCILL 2.1 license](https://cecill.info) contract.
+This documentation is available under the
+[Creative Commons Attribution-ShareAlike 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/).
 
 Please see the [repository](https://github.com/nc0fr/svgu) for complete
 details.

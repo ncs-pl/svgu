@@ -1,6 +1,5 @@
 {
 	"index": "Introduction",
-	"install": "Installation",
 	"guide": "Example",
 	"starlark": "Starlark Language",
 	"references": "References"
