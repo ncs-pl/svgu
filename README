@@ -12,7 +12,25 @@ my own domain (go.nc0.fr) and imported via go.nc0.fr/foo.
 Getting started
 ---------------
 
-TODO
+You can install SVGU via Homebrew, using the Go toolchain, or compiling from
+sources.
+
+Homebrew:
+
+    $ brew install nc0fr/nc0/svgu
+
+Go:
+
+    $ go install go.nc0.fr/svgu@latest
+
+Compiling from sources (requires Go, Git and Make):
+
+    $ git clone https://github.com/nc0fr/svgu.git
+    $ cd svgu
+    $ make
+
+Please refer to the online documentation (https://svgu.nc0.fr) for more
+information.
 
 License
 -------
