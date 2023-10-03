@@ -89,12 +89,6 @@ export default {
 		);
 	},
 	darkMode: true,
-	nextThemes: {
-		defaultTheme: "system",
-		enableTheme: true,
-		enableColorScheme: true,
-		themes: [ "light", "dark" ]
-	},
 	logo: <span>SVGU</span>,
 	logoLink: true,
 	project: {
