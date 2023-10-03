@@ -76,6 +76,48 @@ call this behavior "Pretty URLs").
 
 ## Installation
 
+If you do not see your operating system, use the [Go](#go) or
+[compiling from source](#from-source) methods. Consider contributing to add
+your own operating system installation!
+
+### Homebrew
+
+Nicolas Paul maintain an external [Homebrew](https://brew.sh) repository
+which allows installing SVGU on macOS and some GNU/Linux systems.
+
+```bash
+$ brew install nc0fr/nc0/svgu
+```
+
+### Go
+
+The standard Go toolchain allows installing binaries directly. You only
+require [Go 1.16+](https://go.dev).
+
+```bash
+$ # You can replace latest with any Git ref needed.
+$ go install go.nc0.fr/svgu@latest
+```
+
+### From Source
+
+Compiling SVGU from source requires [Git](https://git-scm.com) and
+[Go](https://go.dev) (1.16 or more).
+
+First, clone the repository from our GitHub origin:
+
+```bash
+$ git clone https://github.com/nc0fr/svgu.git
+$ cd svgu
+```
+
+Then, you can simply build the Go software using `make`:
+
+```bash
+$ make
+$ ./svgu -h
+```
+
 ## Licensing
 
 SVGU is a free software, available under the
