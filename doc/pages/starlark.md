@@ -46,7 +46,7 @@ Python, removed of some Turing-completness for safety.
 
 Starlark is commonly used within [Bazel](https://bazel.build) and
 [Drone](https://drone.io/).
-The design choices behind Starlark ensures multiple neat properties to the
+The design choices behind Starlark ensure multiple neat properties to the
 language and, by extension, to the configurations you write: determinism,
 hermeticity, parallelism, and simplicity.
 
@@ -91,7 +91,8 @@ fizz_buzz(20)
 
 ## Implementations
 
-SVGU is build upon the Go implementation of Starlark, but other exists.
+SVGU is build upon the Go implementation of Starlark, but other implementations
+do exist.
 We encourage the adoption of Starlark everywhere.
 
 - [Go](https://github.com/google/starlark-go/)
