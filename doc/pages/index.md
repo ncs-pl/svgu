@@ -41,12 +41,13 @@ description: |
 # Welcome to SVGU
  
 **SVGU** (short for *shared vanity Go URLs*) is a neat command-line utility
-that allows anyone to publish their Go modules on their own domains, to
-obtain module names such as `example.com/foo` instead of `github.com`.
+that allows anyone to publish their Go modules on their own domain, to
+obtain names such as `example.com/foo` instead of
+`github.com/example/foo`.
 
-Naming a Go module using a custom domain name avoid being trapped to the code
-hosting service (such as GitHub). Indeed, you could change the host used (or
-change the origin used) without requiring your users to change all their code
+Having a Go module with a custom domain name avoid being trapped to the code
+hosting service (such as GitHub). Indeed, you could move to another host or
+change the origin without requiring your users to update all their code
 to the new path.
 
 For illustration, imagine you are using `example.com/foo` as a dependency,
@@ -62,11 +63,11 @@ required meta tags (incl.
 toolchain. These documents also redirects users to the
 [Go documentation service](https://pkg.go.dev) for the requested module.
 
-The resulting directory of files can be hosted on any web server, with the only
+The resulting output directory can be hosted on any Web server, with the only
 required configuration to rewrite URLs to remove the `.html` prefix (some
 call this behavior "Pretty URLs").
 
-> Here are links to various popular web servers enabling URL rewriting:
+> Here are links to various popular Web servers enabling URL rewriting:
 > [Apache HTTPD](https://httpd.apache.org/docs/current/rewrite/remapping.html),
 > [Caddy](https://caddyserver.com/docs/caddyfile/directives/rewrite),
 > [NGINX](https://www.nginx.com/blog/creating-nginx-rewrite-rules/),
@@ -77,13 +78,13 @@ call this behavior "Pretty URLs").
 ## Installation
 
 If you do not see your operating system, use the [Go](#go) or
-[compiling from source](#from-source) methods. Consider contributing to add
-your own operating system installation!
+[compiling from source](#from-source) methods. Also consider contributing
+to add your own package manager installation process!
 
 ### Homebrew
 
-Nicolas Paul maintain an external [Homebrew](https://brew.sh) repository
-which allows installing SVGU on macOS and some GNU/Linux systems.
+Nicolas Paul maintains an external [Homebrew](https://brew.sh) repository
+allowing the installation of SVGU on macOS and some GNU/Linux systems.
 
 ```bash
 $ brew install nc0fr/nc0/svgu
@@ -91,8 +92,8 @@ $ brew install nc0fr/nc0/svgu
 
 ### Go
 
-The standard Go toolchain allows installing binaries directly. You only
-require [Go 1.16+](https://go.dev).
+The standard Go toolchain can download and install executables directly.
+You only need [Go 1.16+](https://go.dev).
 
 ```bash
 $ # You can replace latest with any Git ref needed.
@@ -111,7 +112,7 @@ $ git clone https://github.com/nc0fr/svgu.git
 $ cd svgu
 ```
 
-Then, you can simply build the Go software using `make`:
+Then, build the Go software using `make`:
 
 ```bash
 $ make
