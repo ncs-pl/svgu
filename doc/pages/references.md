@@ -74,8 +74,8 @@ Two modules with the same name cannot exist at the same time in the same index.
 
 A module name must be a valid URL path segment, it cannot be empty, nor
 contains dots (`.`), slashes (`/`), backslashes (`\`), colons (`:`),
-asterisks (`*`), or ASCII control characters (i.e. `\x00` through `\x1f`)
-(required to avoid issues with file systems and URLs).
+asterisks (`*`), or any ASCII control characters (i.e. `\x00` through `\x1f`)
+(required to avoid issues with filesystems and URLs).
 
 The module name cannot also be simply `index`. This is a limitation of the
 file generation system.
