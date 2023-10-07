@@ -27,7 +27,7 @@
     "url": "github:nc0fr/svgu"
   },
   "dependencies": {
-    "next": "13.5.3",
+    "next": "13.5.4",
     "nextra": "2.13.1",
     "nextra-theme-docs": "2.13.1",
     "react": "18.2.0",
